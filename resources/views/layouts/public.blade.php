@@ -34,29 +34,37 @@
                 </div>
             </div>
             <div id="navbar-collapse-with-animation" class="hs-collapse hidden overflow-hidden transition-all duration-300 basis-full grow sm:block">
-                <div class="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:pl-7">
-                    <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6" href="{{ route('public.products.index') }}">Produk</a>
-                    <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6" href="#features">Fitur</a>
-                    <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6" href="#menu">Menu</a>
-                    <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6" href="#reviews">Ulasan</a>
-                    
-                    @if (Route::has('login'))
-                        @auth
-                        <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-primary-500">Dashboard</a>
-                        @else
-                            <a href="{{ route('login') }}" class="flex items-center gap-x-2 font-medium text-gray-500 hover:text-primary-600 sm:border-l sm:border-gray-300 sm:my-6 sm:pl-6">
-                                <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
-                                </svg>
-                                Log in
-                            </a>
-                            @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="inline-block bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700">Register</a>
-                            @endif
-                        @endauth
-                    @endif
+                @if(request()->is('public/products*'))
+                    <div class="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:pl-7">
+                        <a class="font-medium text-primary-600 hover:text-primary-500 sm:py-6" href="{{ url('/') }}">
+                            ← Kembali ke Beranda
+                        </a>
+                    </div>
+                @else
+                    <div class="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:pl-7">
+                        <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6" href="{{ route('public.products.index') }}">Produk</a>
+                        <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6" href="#features">Fitur</a>
+                        <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6" href="#menu">Menu</a>
+                        <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6" href="#reviews">Ulasan</a>
+                        
+                        @if (Route::has('login'))
+                            @auth
+                            <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 focus:outline focus:outline-2 focus:rounded-sm focus:outline-primary-500">Dashboard</a>
+                            @else
+                                <a href="{{ route('login') }}" class="flex items-center gap-x-2 font-medium text-gray-500 hover:text-primary-600 sm:border-l sm:border-gray-300 sm:my-6 sm:pl-6">
+                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                    <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+                                    </svg>
+                                    Log in
+                                </a>
+                                @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="inline-block bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700">Register</a>
+                                @endif
+                            @endauth
+                        @endif
 
-                </div>
+                    </div>
+                @endif
             </div>
         </nav>
     </header>
