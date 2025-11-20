@@ -25,4 +25,23 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'kategori_id');
     }
+
+    /**
+     * Get the reviews for the product.
+     */
+    public function reviews()
+    {
+        return $this->hasMany(ProductReview::class, 'produk_id');
+    }
+
+    public function getImageUrlAttribute(): ?string
+    {
+        if (!$this->image_path) {
+            return null;
+        }
+
+        $normalizedPath = ltrim(str_replace('\\', '/', $this->image_path), '/');
+
+        return asset('storage/' . $normalizedPath);
+    }
 }
