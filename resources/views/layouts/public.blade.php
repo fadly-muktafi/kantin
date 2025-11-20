@@ -20,9 +20,8 @@
         <nav class="relative max-w-7xl w-full mx-auto px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8" aria-label="Global">
             <div class="flex items-center justify-between">
                 <a class="flex-none text-xl font-semibold text-gray-900" href="{{ url('/') }}" aria-label="Brand">
-                    <i class="fas fa-store mr-2"></i> Kantin Sekolah
-                </a>
-                <div class="sm:hidden">
+                    <x-application-logo class="block h-9 w-auto" />
+                </a>                <div class="sm:hidden">
                     <button type="button" class="hs-collapse-toggle p-2 inline-flex justify-center items-center gap-2 rounded-md border font-medium bg-white text-gray-700 shadow-sm align-middle hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-primary-600 transition-all text-sm" data-hs-collapse="#navbar-collapse-with-animation" aria-controls="navbar-collapse-with-animation" aria-label="Toggle navigation">
                         <svg class="hs-collapse-open:hidden w-4 h-4" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
@@ -81,7 +80,9 @@
         <!-- Grid -->
         <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6 mb-10">
             <div class="col-span-full lg:col-span-2">
-                <a class="flex-none text-xl font-semibold dark:text-white" href="{{ url('/') }}" aria-label="Brand">Kantin Sekolah</a>
+                <a class="flex-none text-xl font-semibold dark:text-white" href="{{ url('/') }}" aria-label="Brand">
+    <x-application-logo class="block h-9 w-auto" />
+</a>
                 <p class="mt-3 text-xs sm:text-sm text-gray-600 dark:text-gray-400">© {{ date('Y') }} Kantin Sekolah.</p>
             </div>
             <!-- End Col -->

@@ -17,10 +17,9 @@
 <body class="font-sans text-gray-900 antialiased h-full">
     <div class="dark:bg-slate-900 bg-gray-100 flex flex-col justify-center items-center min-h-screen">
         <div class="w-full sm:max-w-md">
-            <a href="/" class="flex justify-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
-                <i class="fas fa-store mr-2"></i> Kantin Sekolah
-            </a>
-            <div class="relative bg-white rounded-lg shadow-md dark:bg-gray-800">
+            <a href="/" class="flex justify-center mb-6">
+                <x-application-logo class="w-auto h-20" />
+            </a>            <div class="relative bg-white rounded-lg shadow-md dark:bg-gray-800">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
                     {{ $slot }}
                 </div>

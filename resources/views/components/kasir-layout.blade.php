@@ -22,11 +22,8 @@
             <aside class="fixed inset-y-0 left-0 w-64 bg-gradient-to-b from-slate-900 to-slate-800 text-white shadow-xl">
                 <div class="flex flex-col h-full">
                     <div class="flex items-center justify-center h-16 bg-slate-900 border-b border-slate-700">
-                        <h1 class="text-xl font-bold bg-gradient-to-r from-primary-400 to-amber-400 bg-clip-text text-transparent">
-                            Kasir Panel
-                        </h1>
-                    </div>
-                    <nav class="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
+                        <x-application-logo class="h-10 w-auto" />
+                    </div>                    <nav class="flex-1 px-4 py-4 space-y-2 overflow-y-auto">
                         <a href="{{ route('kasir.dashboard') }}" class="flex items-center px-4 py-3 rounded-xl {{ request()->routeIs('kasir.dashboard') ? 'bg-gradient-to-r from-primary-600 to-amber-500 text-white shadow-lg' : 'hover:bg-slate-700/50 text-slate-200' }} transition-all duration-200">
                             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />

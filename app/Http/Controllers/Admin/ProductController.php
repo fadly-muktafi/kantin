@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\ActivityLog;
 
 class ProductController extends Controller
 {
@@ -39,7 +40,14 @@ class ProductController extends Controller
             $validated['image_path'] = $request->file('image')->store('products', 'public');
         }
 
-        Product::create($validated);
+        $product = Product::create($validated);
+
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'aksi' => 'PRODUK DIBUAT',
+            'deskripsi' => "Produk '{$product->nama}' telah ditambahkan",
+            'ip_address' => $request->ip(),
+        ]);
 
         return redirect()->route('admin.products.index')
             ->with('success', 'Produk berhasil ditambahkan.');
@@ -77,6 +85,13 @@ class ProductController extends Controller
 
         $product->update($validated);
 
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'aksi' => 'PRODUK DIPERBARUI',
+            'deskripsi' => "Produk '{$product->nama}' telah diperbarui",
+            'ip_address' => $request->ip(),
+        ]);
+
         return redirect()->route('admin.products.index')
             ->with('success', 'Produk berhasil diperbarui.');
     }
@@ -87,7 +102,15 @@ class ProductController extends Controller
             Storage::disk('public')->delete($product->image_path);
         }
 
+        $productName = $product->nama;
         $product->delete();
+
+        ActivityLog::create([
+            'user_id' => auth()->id(),
+            'aksi' => 'PRODUK DIHAPUS',
+            'deskripsi' => "Produk '{$productName}' telah dihapus",
+            'ip_address' => request()->ip(),
+        ]);
 
         return redirect()->route('admin.products.index')
             ->with('success', 'Produk berhasil dihapus.');
