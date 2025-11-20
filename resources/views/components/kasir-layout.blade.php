@@ -46,18 +46,37 @@
                             Laporan
                         </a>
                     </nav>
-                    <div class="p-4 border-t border-slate-700 bg-slate-900/50">
-                        <div class="flex items-center justify-between mb-3">
-                            <span class="text-sm text-slate-300">{{ Auth::user()->name }}</span>
-                            <span class="text-xs bg-gradient-to-r from-primary-500 to-amber-500 px-2.5 py-1 rounded-full font-semibold text-white">
-                                {{ Auth::user()->role }}
-                            </span>
+                    @php
+                        $kasirUser = Auth::user();
+                        $nameSegments = collect(explode(' ', trim($kasirUser->name)));
+                        $initials = $nameSegments->filter()->map(fn ($segment) => mb_substr($segment, 0, 1))->take(2)->implode('');
+                    @endphp
+                    <div class="p-4 border-t border-slate-700 bg-slate-900/70 backdrop-blur">
+                        <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                            <div class="flex items-center gap-3">
+                                <div class="h-10 w-10 rounded-xl bg-gradient-to-br from-primary-500 to-amber-500 flex items-center justify-center text-white font-semibold uppercase">
+                                    {{ $initials }}
+                                </div>
+                                <div>
+                                    <p class="text-sm font-semibold text-white">{{ $kasirUser->name }}</p>
+                                    <p class="text-xs text-slate-300 flex items-center gap-2">
+                                        <span class="inline-flex items-center px-2 py-0.5 rounded-full bg-white/10 text-[11px] tracking-wide uppercase">{{ $kasirUser->role }}</span>
+                                        <span class="text-slate-400">Kasir Area</span>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="mt-4 flex items-center gap-2">
+                                <a href="{{ route('profile.edit') }}" class="flex-1 text-center text-sm font-medium text-white/90 bg-white/10 hover:bg-white/20 rounded-xl py-2 transition-colors">
+                                    Profil
+                                </a>
+                                <form method="POST" action="{{ route('logout') }}" class="flex-1">
+                                    @csrf
+                                    <button type="submit" class="w-full text-center text-sm font-medium text-white bg-gradient-to-r from-primary-600 to-amber-500 hover:from-primary-700 hover:to-amber-600 rounded-xl py-2 transition-colors">
+                                        Keluar
+                                    </button>
+                                </form>
+                            </div>
                         </div>
-                        <a href="{{ route('profile.edit') }}" class="block text-sm text-slate-300 hover:text-white mb-2 transition-colors">Profile</a>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="block text-sm text-slate-300 hover:text-white w-full text-left transition-colors">Logout</button>
-                        </form>
                     </div>
                 </div>
             </aside>
