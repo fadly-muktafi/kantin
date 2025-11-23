@@ -198,6 +198,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach ($products as $product)
                     <div class="group flex flex-col h-full bg-white dark:bg-slate-900 border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all rounded-2xl overflow-hidden">
+                        <!-- Image Section -->
                         <div class="relative h-44 sm:h-48 w-full overflow-hidden bg-slate-100">
                             <img
                                 class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
@@ -205,63 +206,76 @@
                                 alt="{{ $product->nama }}">
                         </div>
 
-                        <div class="p-4 md:p-5 flex flex-col flex-1">
-                            <div>
-                                <h3 class="text-sm sm:text-base font-semibold text-gray-900 dark:text-gray-100 line-clamp-2" title="{{ $product->nama }}">
-                                    {{ $product->nama }}
-                                </h3>
-                                @if($product->deskripsi)
-                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
-                                    {{ Str::limit($product->deskripsi, 50) }}
-                                </p>
-                                @endif
-                            </div>
-                            
-                            <div class="mt-3 flex items-center justify-between">
-                                <div class="flex items-center gap-2">
+                        <!-- Content Section: Split Left/Right -->
+                        <div class="p-4 md:p-5 flex flex-col flex-1 justify-between">
+                            <div class="flex flex-row justify-between items-start gap-3 h-full">
+                                
+                                <!-- KIRI: Judul, Deskripsi, Ulasan -->
+                                <div class="flex flex-col gap-2 w-full pr-2">
+                                    <div>
+                                        <h3 class="text-sm sm:text-base font-bold text-gray-900 dark:text-gray-100 line-clamp-2 leading-tight" title="{{ $product->nama }}">
+                                            {{ $product->nama }}
+                                        </h3>
+                                        @if($product->deskripsi)
+                                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+                                                {{ Str::limit($product->deskripsi, 45) }}
+                                            </p>
+                                        @endif
+                                    </div>
+
+                                    <!-- Rating (Moved to Left) -->
+                                    <div class="mt-auto pt-1">
+                                        @if($product->reviews->avg('ulasan'))
+                                            <div class="flex items-center gap-1">
+                                                <svg class="w-3.5 h-3.5 text-amber-400" fill="currentColor" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
+                                                <span class="text-xs font-bold text-gray-700 dark:text-gray-200">{{ number_format($product->reviews->avg('ulasan'), 1) }}</span>
+                                                <span class="text-[10px] text-gray-400 dark:text-gray-500">({{ $product->reviews->count() }})</span>
+                                            </div>
+                                        @else
+                                            <span class="text-[10px] text-gray-400 italic">Belum ada ulasan</span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <!-- KANAN: Kategori, Stok, Harga -->
+                                <div class="flex flex-col items-end gap-2 min-w-[80px] shrink-0">
+                                    <!-- Category -->
                                     @if(optional($product->category)->nama)
-                                        <a href="#" class="text-[11px] font-medium text-primary-600 dark:text-primary-400 hover:underline">
+                                        <a href="#" class="text-[10px] uppercase tracking-wider font-semibold text-gray-400 dark:text-gray-500 hover:text-primary-600 transition-colors text-right">
                                             {{ $product->category->nama }}
                                         </a>
                                     @endif
+
+                                    <!-- Stock Badge -->
+                                    @if ($product->stock > 0)
+                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-50 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400 border border-emerald-100 dark:border-emerald-800 whitespace-nowrap">
+                                            Stok {{ $product->stock }}
+                                        </span>
+                                    @else
+                                        <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-red-50 text-red-600 dark:bg-red-900/30 dark:text-red-400 border border-red-100 dark:border-red-800 whitespace-nowrap">
+                                            Habis
+                                        </span>
+                                    @endif
+
+                                    <!-- Price -->
+                                    <p class="text-primary-600 dark:text-primary-400 font-bold text-sm mt-auto text-right">
+                                        Rp {{ number_format($product->harga, 0, ',', '.') }}
+                                    </p>
                                 </div>
-                                @if ($product->stock > 0)
-                                    <span class="px-2 py-1 rounded-full text-[10px] font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
-                                        Stok {{ $product->stock }}
-                                    </span>
-                                @else
-                                    <span class="px-2 py-1 rounded-full text-[10px] font-medium bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300">
-                                        Stok Habis
-                                    </span>
-                                @endif
-                            </div>
 
-                            <div class="mt-3 flex items-center gap-2">
-                                @if($product->reviews->avg('ulasan'))
-                                    <div class="flex items-center gap-1">
-                                        <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 16 16"><path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/></svg>
-                                        <span class="text-xs font-semibold text-gray-700 dark:text-gray-200">{{ number_format($product->reviews->avg('ulasan'), 1) }}</span>
-                                        <span class="text-xs text-gray-500 dark:text-gray-400">({{ $product->reviews->count() }})</span>
-                                    </div>
-                                @endif
-                            </div>
-
-                            <div class="mt-4 flex-1 flex flex-col justify-end">
-                                <p class="text-primary-600 dark:text-primary-400 font-semibold text-sm">
-                                    Rp {{ number_format($product->harga, 0, ',', '.') }}
-                                </p>
                             </div>
                         </div>
 
-                        <div class="mt-auto border-t border-gray-200 dark:border-gray-800">
+                        <!-- Button Section -->
+                        <div class="mt-auto border-t border-gray-100 dark:border-gray-800">
                             @if ($product->stock > 0)
                                 <a href="{{ route('public.products.show', $product) }}"
-                                class="w-full py-3 px-4 inline-flex justify-center items-center gap-2 font-medium bg-white dark:bg-slate-900 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-slate-900 text-xs sm:text-sm">
+                                class="w-full py-3 px-4 inline-flex justify-center items-center gap-2 font-medium bg-white dark:bg-slate-900 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-slate-800 hover:text-primary-600 transition-colors focus:outline-none text-xs sm:text-sm">
                                     Lihat Detail
                                 </a>
                             @else
                                 <span
-                                    class="w-full py-3 px-4 inline-flex justify-center items-center gap-2 font-medium bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-gray-500 text-xs sm:text-sm cursor-not-allowed">
+                                    class="w-full py-3 px-4 inline-flex justify-center items-center gap-2 font-medium bg-gray-50 dark:bg-slate-800/50 text-gray-400 dark:text-gray-500 text-xs sm:text-sm cursor-not-allowed">
                                     Stok Habis
                                 </span>
                             @endif
@@ -270,6 +284,7 @@
                 @endforeach
             </div>
         @else
+            <!-- Empty State -->
             <div class="rounded-2xl border border-dashed border-gray-300 dark:border-gray-700 bg-white/60 dark:bg-slate-900/60 p-8 text-center">
                 <p class="text-base text-gray-700 dark:text-gray-200 font-medium mb-1">
                     Belum ada menu yang terdaftar.
