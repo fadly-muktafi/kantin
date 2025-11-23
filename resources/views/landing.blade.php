@@ -203,27 +203,56 @@
                                 class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-300"
                                 src="{{ $product->image_url ?? 'https://via.placeholder.com/300x200.png?text=No+Image' }}"
                                 alt="{{ $product->nama }}">
-                            @if(optional($product->category)->nama)
-                                <span class="absolute top-3 left-3 inline-flex items-center px-2.5 py-1 rounded-full text-[10px] font-medium bg-black/60 text-white backdrop-blur-sm">
-                                    {{ $product->category->nama }}
-                                </span>
-                            @endif
                         </div>
 
                         <div class="p-4 md:p-5 flex flex-col flex-1">
-                            <h3 class="text-sm sm:text-base font-semibold text-gray-900 dark:text-gray-100 line-clamp-2">
-                                {{ $product->nama }}
-                            </h3>
-                            <p class="mt-2 text-primary-600 dark:text-primary-400 font-semibold text-sm">
-                                Rp {{ number_format($product->harga, 0, ',', '.') }}
-                            </p>
+                            <div>
+                                <h3 class="text-sm sm:text-base font-semibold text-gray-900 dark:text-gray-100 line-clamp-2" title="{{ $product->nama }}">
+                                    {{ $product->nama }}
+                                </h3>
+                                @if($product->deskripsi)
+                                <p class="mt-1 text-xs text-gray-500 dark:text-gray-400 line-clamp-2">
+                                    {{ Str::limit($product->deskripsi, 50) }}
+                                </p>
+                                @endif
+                            </div>
+                            
+                            <div class="mt-3 flex items-center justify-between">
+                                @if(optional($product->category)->nama)
+                                    <a href="#" class="text-[11px] font-medium text-primary-600 dark:text-primary-400 hover:underline">
+                                        {{ $product->category->nama }}
+                                    </a>
+                                @endif
+                                <p class="text-primary-600 dark:text-primary-400 font-semibold text-sm">
+                                    Rp {{ number_format($product->harga, 0, ',', '.') }}
+                                </p>
+                            </div>
+
+                            <div class="mt-3 flex items-center justify-between">
+                                @if ($product->stock > 0)
+                                    <span class="px-2 py-1 rounded-full text-[10px] font-medium bg-emerald-100 text-emerald-700 dark:bg-emerald-900/50 dark:text-emerald-300">
+                                        Stok {{ $product->stock }}
+                                    </span>
+                                @else
+                                    <span class="px-2 py-1 rounded-full text-[10px] font-medium bg-red-100 text-red-700 dark:bg-red-900/50 dark:text-red-300">
+                                        Stok Habis
+                                    </span>
+                                @endif
+                            </div>
                         </div>
 
                         <div class="mt-auto border-t border-gray-200 dark:border-gray-800">
-                            <a href="{{ route('public.products.show', $product) }}"
+                            @if ($product->stock > 0)
+                                <a href="{{ route('public.products.show', $product) }}"
                                 class="w-full py-3 px-4 inline-flex justify-center items-center gap-2 font-medium bg-white dark:bg-slate-900 text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-slate-900 text-xs sm:text-sm">
-                                Lihat Detail
-                            </a>
+                                    Lihat Detail
+                                </a>
+                            @else
+                                <span
+                                    class="w-full py-3 px-4 inline-flex justify-center items-center gap-2 font-medium bg-gray-100 dark:bg-slate-800 text-gray-400 dark:text-gray-500 text-xs sm:text-sm cursor-not-allowed">
+                                    Stok Habis
+                                </span>
+                            @endif
                         </div>
                     </div>
                 @endforeach

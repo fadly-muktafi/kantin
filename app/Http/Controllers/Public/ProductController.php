@@ -11,7 +11,7 @@ class ProductController extends Controller
 {
     public function index(Request $request)
     {
-        $query = Product::with('category')->where('stock', '>', 0);
+        $query = Product::with(['category', 'reviews'])->where('stock', '>', 0);
         
         if ($request->has('category') && $request->category) {
             $query->where('kategori_id', $request->category);

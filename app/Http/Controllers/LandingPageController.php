@@ -15,7 +15,7 @@ class LandingPageController extends Controller
     public function __invoke(Request $request)
     {
         // Ambil 8 produk terbaru untuk ditampilkan
-        $products = Product::with('category')->latest()->take(9)->get();
+        $products = Product::with(['category', 'reviews'])->latest()->take(9)->get();
 
         // Ambil semua kategori untuk filter menu
         $categories = Category::all();
