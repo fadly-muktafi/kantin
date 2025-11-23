@@ -3,8 +3,8 @@
 
     @if($stats['total_categories'] == 0 || $stats['total_products'] == 0)
         <div class="mb-6 bg-gradient-to-r from-primary-50 to-amber-50 dark:from-primary-900/20 dark:to-amber-900/20 border border-primary-200 dark:border-primary-800 rounded-2xl p-6 shadow-sm">
-            <div class="flex items-start justify-between">
-                <div class="flex items-start">
+            <div class="flex flex-col md:flex-row items-start justify-between">
+                <div class="flex items-start mb-4 md:mb-0">
                     <div class="p-2 rounded-xl bg-gradient-to-br from-primary-100 to-amber-100 dark:from-primary-800 dark:to-amber-800 mr-3 mt-1">
                         <svg class="w-6 h-6 text-primary-600 dark:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -15,14 +15,14 @@
                         <p class="text-gray-700 dark:text-gray-300 mt-1">Mulai dengan menambahkan kategori dan produk untuk memulai.</p>
                     </div>
                 </div>
-                <div class="flex space-x-2">
+                <div class="flex flex-col sm:flex-row sm:space-x-2 space-y-2 sm:space-y-0 w-full sm:w-auto">
                     @if($stats['total_categories'] == 0)
-                        <a href="{{ route('admin.categories.create') }}" class="px-4 py-2 bg-gradient-to-r from-primary-600 to-amber-500 text-white rounded-xl hover:from-primary-700 hover:to-amber-600 text-sm font-medium shadow-sm transition-all">
+                        <a href="{{ route('admin.categories.create') }}" class="px-4 py-2 bg-gradient-to-r from-primary-600 to-amber-500 text-white rounded-xl hover:from-primary-700 hover:to-amber-600 text-sm font-medium shadow-sm transition-all text-center">
                             + Tambah Kategori
                         </a>
                     @endif
                     @if($stats['total_products'] == 0)
-                        <a href="{{ route('admin.products.create') }}" class="px-4 py-2 bg-gradient-to-r from-primary-600 to-amber-500 text-white rounded-xl hover:from-primary-700 hover:to-amber-600 text-sm font-medium shadow-sm transition-all">
+                        <a href="{{ route('admin.products.create') }}" class="px-4 py-2 bg-gradient-to-r from-primary-600 to-amber-500 text-white rounded-xl hover:from-primary-700 hover:to-amber-600 text-sm font-medium shadow-sm transition-all text-center">
                             + Tambah Produk
                         </a>
                     @endif

@@ -66,9 +66,9 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <!-- Recent Transactions -->
         <div class="bg-white dark:bg-slate-800 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 overflow-hidden">
-            <div class="p-6 border-b border-gray-200 dark:border-slate-700 bg-gradient-to-r from-primary-50 to-amber-50 dark:from-slate-800 dark:to-slate-800 flex justify-between items-center">
+            <div class="p-6 border-b border-gray-200 dark:border-slate-700 bg-gradient-to-r from-primary-50 to-amber-50 dark:from-slate-800 dark:to-slate-800 flex flex-col sm:flex-row justify-between sm:items-center gap-4">
                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Transaksi Terbaru</h3>
-                <a href="{{ route('kasir.transactions.create') }}" class="bg-gradient-to-r from-primary-600 to-amber-500 hover:from-primary-700 hover:to-amber-600 text-white px-4 py-2 rounded-xl text-sm font-medium shadow-sm transition-all">
+                <a href="{{ route('kasir.transactions.create') }}" class="bg-gradient-to-r from-primary-600 to-amber-500 hover:from-primary-700 hover:to-amber-600 text-white px-4 py-2 rounded-xl text-sm font-medium shadow-sm transition-all w-full sm:w-auto text-center">
                     + Transaksi Baru
                 </a>
             </div>
