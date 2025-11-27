@@ -12,10 +12,20 @@ use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $transactions = Transaction::latest()->paginate(10);
-        return view('kasir.transactions.index', compact('transactions'));
+        $query = Transaction::query();
+
+        if ($request->has('status') && in_array($request->status, ['pending', 'paid', 'cancelled'])) {
+            $query->where('status', $request->status);
+        }
+
+        $transactions = $query->latest()->paginate(10)->withQueryString();
+        
+        return view('kasir.transactions.index', [
+            'transactions' => $transactions,
+            'active_status' => $request->status ?? 'all',
+        ]);
     }
 
     public function create()
@@ -104,6 +114,20 @@ class TransactionController extends Controller
         ])->setPaper('a5');
 
         return $pdf->download("transaksi-{$transaction->id}.pdf");
+    }
+
+    public function confirm(Transaction $transaction)
+    {
+        // Optional: Add authorization check here
+        // $this->authorize('confirm', $transaction); 
+
+        if ($transaction->status === 'pending') {
+            $transaction->status = 'paid';
+            $transaction->save();
+            return redirect()->route('kasir.transactions.index')->with('success', 'Pembayaran transaksi #' . $transaction->id . ' berhasil dikonfirmasi.');
+        }
+
+        return redirect()->route('kasir.transactions.index')->with('error', 'Transaksi #' . $transaction->id . ' tidak dalam status menunggu pembayaran.');
     }
 }
 

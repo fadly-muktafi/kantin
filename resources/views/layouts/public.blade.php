@@ -41,7 +41,12 @@
                     </div>
                 @else
                     <div class="flex flex-col gap-y-4 gap-x-0 mt-5 sm:flex-row sm:items-center sm:justify-end sm:gap-y-0 sm:gap-x-7 sm:mt-0 sm:pl-7">
-                        <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6" href="{{ route('public.products.index') }}">Produk</a>
+                        <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6 flex items-center gap-1" href="{{ route('public.products.index') }}">
+                            Keranjang
+                            <span id="cart-item-count" class="inline-flex items-center justify-center min-w-[20px] h-5 text-xs font-bold text-white bg-primary-600 rounded-full px-1 py-0.5 ml-1 @if(collect(session('cart'))->sum('quantity') == 0) hidden @endif">
+                                {{ collect(session('cart'))->sum('quantity') }}
+                            </span>
+                        </a>
                         <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6" href="#features">Fitur</a>
                         <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6" href="#menu">Menu</a>
                         <a class="font-medium text-gray-500 hover:text-gray-400 sm:py-6" href="#reviews">Ulasan</a>

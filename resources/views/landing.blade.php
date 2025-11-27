@@ -110,12 +110,11 @@
                     <div class="rounded-2xl border border-gray-200 dark:border-gray-800 p-4 bg-white dark:bg-slate-900">
                         <p class="text-sm font-semibold text-gray-900 dark:text-white">Jam Operasional</p>
                         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Senin - Jumat</p>
-                        <p class="text-base font-bold text-primary-600 mt-1">09.00 - 15.00</p>
+                        <p class="text-base font-bold text-primary-600 mt-1">08.30 - 15.00 WIB</p>
                     </div>
                     <div class="rounded-2xl border border-gray-200 dark:border-gray-800 p-4 bg-white dark:bg-slate-900">
                         <p class="text-sm font-semibold text-gray-900 dark:text-white">Lokasi</p>
-                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Gedung A • Lantai dasar</p>
-                        <p class="text-base font-bold text-primary-600 mt-1">Dekat UKS</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">Kantin SMKN 64 Jakarta</p>
                     </div>
                 </div>
             </div>

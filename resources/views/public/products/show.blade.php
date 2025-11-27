@@ -17,7 +17,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
             <!-- LEFT COLUMN: Image, Details, Reviews (Wider) -->
-            <div class="lg:col-span-8 space-y-8">
+            <div class="lg:col-span-12 space-y-8">
                 
                 <!-- Product Header & Image -->
                 <div class="bg-white rounded-2xl p-2 shadow-sm border border-gray-100">
@@ -146,7 +146,7 @@
                         </div>
 
                         <!-- List Reviews -->
-                        <div class="space-y-4 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+                        <div class="space-y-4 max-h-[300px] overflow-y-auto pr-2 hide-scrollbar">
                             @forelse($product->reviews as $review)
                                 <div class="pb-4 border-b border-gray-100 last:border-0">
                                     <div class="flex justify-between items-start mb-1">
@@ -166,67 +166,6 @@
                                 </div>
                             @endforelse
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- RIGHT COLUMN: Sticky Order Card (Narrower) -->
-            <div class="lg:col-span-4 sticky top-24">
-                <div class="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-                    <div class="bg-gradient-to-r from-gray-900 to-gray-800 p-4 text-white">
-                        <h3 class="font-bold text-lg">Buat Pesanan</h3>
-                        <p class="text-xs text-gray-300">Siap disantap dalam beberapa menit</p>
-                    </div>
-                    
-                    <div class="p-6">
-                        @if($product->stock > 0)
-                            <form action="{{ route('public.cart.checkout') }}" method="POST" class="space-y-5">
-                                @csrf
-                                <input type="hidden" name="items[0][produk_id]" value="{{ $product->id }}">
-
-                                <!-- Quantity Input -->
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">Jumlah Pesanan</label>
-                                    <div class="flex items-center border border-gray-300 rounded-xl overflow-hidden">
-                                        <button type="button" onclick="document.getElementById('jumlah').stepDown()" class="px-4 py-3 bg-gray-50 hover:bg-gray-100 border-r border-gray-300 transition">-</button>
-                                        <input type="number" name="items[0][jumlah]" id="jumlah" min="1" max="{{ $product->stock }}" value="1" class="w-full text-center border-none focus:ring-0 text-gray-900 font-semibold" readonly>
-                                        <button type="button" onclick="document.getElementById('jumlah').stepUp()" class="px-4 py-3 bg-gray-50 hover:bg-gray-100 border-l border-gray-300 transition">+</button>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Nama Pemesan</label>
-                                    <input type="text" name="nama_pelanggan" required class="w-full rounded-xl border-gray-300 focus:border-primary-500 focus:ring-primary-500 text-sm py-2.5" placeholder="Masukkan namamu">
-                                    @error('nama_pelanggan') <p class="text-xs text-red-500 mt-1">{{ $message }}</p> @enderror
-                                </div>
-
-                                <div>
-                                    <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wide mb-1">Metode Bayar</label>
-                                    <select name="metode_bayar" required class="w-full rounded-xl border-gray-300 focus:border-primary-500 focus:ring-primary-500 text-sm py-2.5">
-                                        <option value="cash">💵 Tunai (Cash)</option>
-                                        <option value="qris">📱 QRIS</option>
-                                        <option value="transfer">💳 Transfer Bank</option>
-                                    </select>
-                                </div>
-
-                                <div class="pt-2">
-                                    <button type="submit" class="w-full flex justify-center items-center gap-2 bg-primary-600 hover:bg-primary-700 text-white font-bold py-3.5 px-4 rounded-xl shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5">
-                                        <span>Pesan Sekarang</span>
-                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                    </button>
-                                    <p class="text-[10px] text-center text-gray-400 mt-3">
-                                        Pastikan saldo cukup atau bawa uang pas ya!
-                                    </p>
-                                </div>
-                            </form>
-                        @else
-                            <div class="text-center py-8 bg-red-50 rounded-xl border border-red-100">
-                                <svg class="w-12 h-12 text-red-300 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
-                                <h3 class="text-red-800 font-bold">Yah, Habis!</h3>
-                                <p class="text-red-600 text-xs mt-1">Menu ini sedang tidak tersedia hari ini.</p>
-                                <a href="{{ route('public.products.index') }}" class="inline-block mt-4 text-xs font-semibold text-red-700 hover:underline">Cari menu lain &rarr;</a>
-                            </div>
-                        @endif
                     </div>
                 </div>
             </div>

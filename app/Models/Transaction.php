@@ -16,6 +16,7 @@ class Transaction extends Model
         'nama_pelanggan',
         'total',
         'metode_bayar',
+        'status',
     ];
 
     /**
